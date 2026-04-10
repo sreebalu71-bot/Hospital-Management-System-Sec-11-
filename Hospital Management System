@@ -1,0 +1,170 @@
+# ============================================
+# HOSPITAL MANAGEMENT SYSTEM
+# MICRO-PROJECT BY:[TEAM - 09]
+# SECTION:[11]
+# ============================================
+
+import os
+import time
+
+
+def clear():
+    os.system('cls' if os.name == 'nt' else 'clear')
+
+
+def thank_you():
+    print("\nThank you! Operation completed successfully.")
+    input("\nPress Enter to return to menu...")
+
+
+class Patient:
+    def __init__(self, pid, name, age, disease):
+        self.pid = pid
+        self.name = name
+        self.age = age
+        self.disease = disease
+
+
+class Appointment:
+    def __init__(self, pid, doctor, date):
+        self.pid = pid
+        self.doctor = doctor
+        self.date = date
+
+
+class Bill:
+    def __init__(self, pid, amount):
+        self.pid = pid
+        self.amount = amount
+
+
+class Hospital:
+    def __init__(self):
+        self.patients = []
+        self.appointments = []
+        self.bills = []
+
+    def add_patient(self):
+        clear()
+        print("--- Add Patient ---\n")
+
+        pid = input("Enter Patient ID: ")
+        name = input("Enter Name: ")
+        age = input("Enter Age: ")
+        disease = input("Enter Disease: ")
+
+        self.patients.append(Patient(pid, name, age, disease))
+
+        print("\nPatient Added Successfully!")
+        thank_you()
+
+    def view_patients(self):
+        clear()
+        print("--- Patient Records ---\n")
+
+        if not self.patients:
+            print("No patients found.\n")
+        else:
+            for p in self.patients:
+                print(f"{p.pid} | {p.name} | {p.age} | {p.disease}")
+
+        thank_you()
+
+    def add_appointment(self):
+        clear()
+        print("--- Book Appointment ---\n")
+
+        pid = input("Enter Patient ID: ")
+        doctor = input("Enter Doctor Name: ")
+        date = input("Enter Date (DD-MM-YYYY): ")
+
+        self.appointments.append(Appointment(pid, doctor, date))
+
+        print("\nAppointment Booked Successfully!")
+        thank_you()
+
+    def view_appointments(self):
+        clear()
+        print("--- Appointments ---\n")
+
+        if not self.appointments:
+            print("No appointments found.\n")
+        else:
+            for a in self.appointments:
+                print(f"{a.pid} | {a.doctor} | {a.date}")
+
+        thank_you()
+
+    def generate_bill(self):
+        clear()
+        print("--- Generate Bill ---\n")
+
+        pid = input("Enter Patient ID: ")
+        amount = input("Enter Amount: ")
+
+        self.bills.append(Bill(pid, amount))
+
+        print("\nBill Generated Successfully!")
+        thank_you()
+
+    def view_bills(self):
+        clear()
+        print("--- Billing Records ---\n")
+
+        if not self.bills:
+            print("No bills found.\n")
+        else:
+            for b in self.bills:
+                print(f"{b.pid} | ₹{b.amount}")
+
+        thank_you()
+
+    def thank_you_screen(self):
+        clear()
+        print("\n" + "="*50)
+        print("THANK YOU FOR USING OUR SYSTEM")
+        print("="*50)
+        print("Stay Healthy | Visit Again")
+        print("="*50 + "\n")
+        time.sleep(2)
+
+    def menu(self):
+        while True:
+            clear()
+            print("===================================")
+            print("   HOSPITAL MANAGEMENT SYSTEM")
+            print("===================================")
+            print("1. Add Patient")
+            print("2. View Patients")
+            print("3. Book Appointment")
+            print("4. View Appointments")
+            print("5. Generate Bill")
+            print("6. View Bills")
+            print("7. Exit")
+            print("===================================")
+
+            choice = input("Enter your choice: ")
+
+            if choice == '1':
+                self.add_patient()
+            elif choice == '2':
+                self.view_patients()
+            elif choice == '3':
+                self.add_appointment()
+            elif choice == '4':
+                self.view_appointments()
+            elif choice == '5':
+                self.generate_bill()
+            elif choice == '6':
+                self.view_bills()
+            elif choice == '7':
+                self.thank_you_screen()
+                break
+            else:
+                print("\nInvalid choice! Try again.")
+                time.sleep(1)
+
+
+if __name__ == "__main__":
+    system = Hospital()
+    system.menu()
